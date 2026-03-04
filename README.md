@@ -17,6 +17,18 @@
 
 > 主要负责人：王胜教授（[sheng.whu.edu.cn](https://sheng.whu.edu.cn)）及其博士、硕士研究生团队。
 
+
+
+## 界面预览
+
+| 首页：论文与目录管理 | 阅读界面：PDF + AI 工具箱 |
+|---|---|
+| ![Home](docs/images/home.png) | ![Reader](docs/images/reader.png) |
+
+| 自动目录与论文分类 | Claude Code 接入演示 |
+|---|---|
+| ![Auto Folder](docs/images/auto-folder.png) | ![Claude Code](docs/images/claude-code.png) |
+
 ## 快速导航
 
 - [项目定位](#项目定位)
@@ -120,16 +132,6 @@ sequenceDiagram
 2. Analyst：负责结构化解释。
 3. Critic：负责有效性审查。
 4. Writer：负责可交付输出。
-
-## 界面预览
-
-| 首页：论文与目录管理 | 阅读界面：PDF + AI 工具箱 |
-|---|---|
-| ![Home](docs/images/home.png) | ![Reader](docs/images/reader.png) |
-
-| 自动目录与论文分类 | Claude Code 接入演示 |
-|---|---|
-| ![Auto Folder](docs/images/auto-folder.png) | ![Claude Code](docs/images/claude-code.png) |
 
 ## 快速开始
 
