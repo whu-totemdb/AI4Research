@@ -1,6 +1,7 @@
 ﻿# AI4Research
 
 > Open AI Research Hub for Papers: **Claude Code + Gemini CLI + Codex + MCP Tools**
+> 主要负责人：王胜教授（[sheng.whu.edu.cn](https://sheng.whu.edu.cn)）及其博士、硕士研究生团队
 
 AI4Research 是一个面向科研工作流的开放式 AI 中枢。  
 它的目标不是做“单点聊天”，而是让 **模型、文件、工具、Agent** 在同一系统中协作，形成可持续迭代的研究生产线。
@@ -184,3 +185,5 @@ AI4Research/
 2. 文件级检索与证据链增强
 3. 多 Agent 协作策略
 4. 阅读与交互体验优化
+
+
