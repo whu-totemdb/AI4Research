@@ -1,0 +1,67 @@
+.tool-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tool-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tool-card:hover {
+  border-color: #1677ff;
+  background-color: #f5f9ff;
+}
+
+.tool-card-selected {
+  border-color: #1677ff;
+  background-color: #f0f7ff;
+}
+
+.tool-card-disabled {
+  opacity: 0.6;
+  cursor: default !important;
+}
+
+.tool-card-disabled:hover {
+  border-color: #e8e8e8;
+  background-color: transparent;
+}
+
+.tool-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.tool-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.tool-card-name {
+  font-weight: 500;
+  font-size: 14px;
+  color: #262626;
+}
+
+.tool-card-description {
+  font-size: 12px;
+  color: #8c8c8c;
+  line-height: 1.5;
+}
+
+.tool-selector-info {
+  padding: 12px;
+  background-color: #f5f9ff;
+  border-radius: 6px;
+  border: 1px solid #d6e9ff;
+}

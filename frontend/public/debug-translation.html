@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Translation Settings Debug</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        button { margin: 10px; padding: 10px; }
+        pre { background: #f5f5f5; padding: 10px; border: 1px solid #ddd; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Translation Settings Debug Tool</h1>
+
+    <div>
+        <h2>Test Controls</h2>
+        <button onclick="testGet()">1. Test GET</button>
+        <button onclick="testPut()">2. Test PUT</button>
+        <button onclick="testGetAfterPut()">3. Verify After PUT</button>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <div>
+        <h2>Input Data</h2>
+        <label>Provider ID: <input id="providerId" value="test_provider_123" style="width: 200px;"></label><br><br>
+        <label>Prompt: <textarea id="prompt" rows="3" style="width: 400px;">请将以下文本翻译成中文，保持专业术语的准确性：</textarea></label>
+    </div>
+
+    <div>
+        <h2>Log Output</h2>
+        <pre id="output"></pre>
+    </div>
+
+    <script>
+        const api = axios.create({
+            baseURL: '/api',
+            timeout: 30000,
+        });
+
+        function log(message, type = 'info') {
+            const output = document.getElementById('output');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : (type === 'success' ? 'success' : '');
+            output.innerHTML += `<span class="${className}">[${timestamp}] ${message}</span>\n`;
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('output').innerHTML = '';
+        }
+
+        async function testGet() {
+            log('=== Testing GET /api/settings/translation ===');
+            try {
+                const response = await api.get('/settings/translation');
+                log('✓ GET Success!', 'success');
+                log('Status: ' + response.status);
+                log('Response Data:');
+                log(JSON.stringify(response.data, null, 2));
+            } catch (error) {
+                log('✗ GET Failed!', 'error');
+                log('Error Message: ' + error.message, 'error');
+                if (error.response) {
+                    log('Response Status: ' + error.response.status, 'error');
+                    log('Response Data: ' + JSON.stringify(error.response.data, null, 2), 'error');
+                }
+            }
+            log('');
+        }
+
+        async function testPut() {
+            log('=== Testing PUT /api/settings/translation ===');
+
+            const providerId = document.getElementById('providerId').value;
+            const prompt = document.getElementById('prompt').value;
+
+            const data = {
+                translation_enabled: true,
+                translation_provider_id: providerId,
+                translation_prompt: prompt
+            };
+
+            log('Request Data:');
+            log(JSON.stringify(data, null, 2));
+
+            try {
+                const response = await api.put('/settings/translation', data);
+                log('✓ PUT Success!', 'success');
+                log('Status: ' + response.status);
+                log('Response Data:');
+                log(JSON.stringify(response.data, null, 2));
+            } catch (error) {
+                log('✗ PUT Failed!', 'error');
+                log('Error Message: ' + error.message, 'error');
+                if (error.response) {
+                    log('Response Status: ' + error.response.status, 'error');
+                    log('Response Data: ' + JSON.stringify(error.response.data, null, 2), 'error');
+                }
+                if (error.request) {
+                    log('Request was made but no response received', 'error');
+                }
+            }
+            log('');
+        }
+
+        async function testGetAfterPut() {
+            await testPut();
+            setTimeout(async () => {
+                log('--- Verifying saved data ---');
+                await testGet();
+            }, 500);
+        }
+
+        // Auto-run GET on page load
+        window.onload = () => {
+            log('Page loaded. Ready to test.');
+            log('Backend URL: ' + api.defaults.baseURL);
+            log('');
+        };
+    </script>
+</body>
+</html>

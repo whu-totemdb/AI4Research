@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  claude-code:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: claude-code-container
+    ports:
+      - "${PORT:-8080}:8080"
+    volumes:
+      - workspace-data:/workspace
+    environment:
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - NODE_ENV=production
+    deploy:
+      resources:
+        limits:
+          cpus: '${CPU_LIMIT:-2.0}'
+          memory: ${MEMORY_LIMIT:-2G}
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETUID
+      - SETGID
+    restart: unless-stopped
+    networks:
+      - claude-network
+
+networks:
+  claude-network:
+    driver: bridge
+
+volumes:
+  workspace-data:
+    driver: local
